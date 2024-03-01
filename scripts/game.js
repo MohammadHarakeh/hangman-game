@@ -110,6 +110,7 @@ let currentDisplay = Array(randomWord.length).fill("_");
 let hiddenWord = "";
 let letterFound = false;
 let incorrectGuesses = 0;
+let correctGuesses = 0;
 
 function getRandomWord() {
   const randomIndex = Math.floor(Math.random() * randomWords.length);
@@ -152,10 +153,10 @@ letterElements.forEach((letterElements) => {
 
     for (let i = 0; i < randomWord.length; i++) {
       if (randomWord[i].toLowerCase() === clickedLetter) {
-        console.log("clicked");
         letterElements.style.pointerEvents = "none";
         letterElements.style.opacity = "0.5";
         letterElements.style.cursor = "not-allowed";
+        correctGuesses++;
 
         currentDisplay[i] = clickedLetter;
         if (i == 0) {
@@ -166,18 +167,30 @@ letterElements.forEach((letterElements) => {
         letterFound = true;
       }
     }
+
     if (!letterFound) {
       incorrectGuesses++;
       letterElements.style.pointerEvents = "none";
       letterElements.style.opacity = "0.5";
       letterElements.style.cursor = "not-allowed";
-      updateHangman;
-      console.log(incorrectGuesses);
+      updateHangman();
+    }
+    if (incorrectGuesses === 6) {
+      location.href = location.href;
+      alert("Game Over! Try Again.");
     }
 
     if (letterFound) {
       updateDisplay();
     }
+    if (correctGuesses == randomWord.length) {
+      setTimeout(function () {
+        alert("Congragulations! You Won!");
+        location.href = location.href;
+      }),
+        200;
+    }
+    letterFound = false;
   });
 });
 
