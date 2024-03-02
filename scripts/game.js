@@ -156,6 +156,7 @@ letterElements.forEach((letterElements) => {
         letterElements.style.pointerEvents = "none";
         letterElements.style.opacity = "0.5";
         letterElements.style.cursor = "not-allowed";
+        letterElements.style.backgroundColor = "green";
         correctGuesses++;
 
         currentDisplay[i] = clickedLetter;
@@ -173,11 +174,14 @@ letterElements.forEach((letterElements) => {
       letterElements.style.pointerEvents = "none";
       letterElements.style.opacity = "0.5";
       letterElements.style.cursor = "not-allowed";
+      letterElements.style.backgroundColor = "red";
       updateHangman();
     }
     if (incorrectGuesses === 6) {
-      location.href = location.href;
-      alert("Game Over! Try Again.");
+      setTimeout(function () {
+        alert("Game Over! You Lost!");
+        location.href = location.href;
+      }, 200);
     }
 
     if (letterFound) {
